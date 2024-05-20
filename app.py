@@ -74,8 +74,8 @@ def create_final_xml(fee_data, desc_data, output_path):
         f.write(xmlstr)
 
 # File paths
-fee_xml_path = './NOMEN_CODE_FEE_LIM.xml'
-desc_xml_path = './NOMEN_CODE_DESC_HIST.xml'
+fee_xml_path = "./xml/NOMEN_CODE_FEE_LIM.xml"
+desc_xml_path = "./xml/NOMEN_CODE_DESC_HIST.xml"
 output_xml_path = './transformed.xml'
 
 # Process data

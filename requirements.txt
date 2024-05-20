@@ -1,0 +1,4 @@
+lxml
+python-dotenv
+sqlalchemy
+pymysql

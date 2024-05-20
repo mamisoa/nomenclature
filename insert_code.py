@@ -42,9 +42,9 @@ def process_xml_and_update_db(xml_path):
                 "code": code,
                 "code_desc": code_desc,
                 "price_list": cout,
-                # "supplement_ratio": 1.54
+                "supplement_ratio": 1.54
             }
-            print("data:", data, "cout:", ast.literal_eval(cout))
+            # print("data:", data, "cout:", ast.literal_eval(cout))
 
             # Check if the code already exists
             result = session.execute(select(func.count()).select_from(nomenclature).where(nomenclature.c.code == code)).scalar()
