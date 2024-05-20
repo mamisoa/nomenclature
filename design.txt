@@ -1,0 +1,27 @@
+NOMEN_CODE_KEY_LETTER_VALUE
+"""Calcul du cout par coef x key_letter_value"
+nomen_code
+key_letter_seq
+key_letter_value
+key_coef
+
+NOMEN_CODE_FEE_LIM
+"""relation directe nomenclature/cout"""
+nomen_code
+fee_code catégorie de remboursement eg 0/1600/1300
+fee
+
+NOMEN_CODE_DESC_HIST
+"""relation code/description """
+nomen_code
+language F/N
+nomen_desc
+
+NOMEN_CODE_RULES / NOMEN_CODE_RULES_TOT
+""" code vers num de regle"
+nomen_code
+rule_ref ---> foreign key
+
+NOMEN_RULES
+rule_ref
+rule_desc
