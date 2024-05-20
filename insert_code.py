@@ -1,4 +1,6 @@
+import ast
 import datetime
+import json
 import xml.etree.ElementTree as ET
 
 from dotenv import dotenv_values
@@ -32,17 +34,17 @@ def process_xml_and_update_db(xml_path):
             code = entry.get('code')
             desc_fr = entry.find('desc_fr').text if entry.find('desc_fr') is not None else ''
             desc_nl = entry.find('desc_nl').text if entry.find('desc_nl') is not None else ''
-            code_desc = f"{desc_fr} {desc_nl}"
+            code_desc = f"{desc_fr} / {desc_nl}"
             cout = entry.find('cout').text if entry.find('cout') is not None else '[0,0,0,0]'
-
             # Prepare data dictionary here
             data = {
                 "date": datetime.datetime.now(),
                 "code": code,
                 "code_desc": code_desc,
                 "price_list": cout,
-                "supplement_ratio": 1.52
+                # "supplement_ratio": 1.54
             }
+            print("data:", data, "cout:", ast.literal_eval(cout))
 
             # Check if the code already exists
             result = session.execute(select(func.count()).select_from(nomenclature).where(nomenclature.c.code == code)).scalar()

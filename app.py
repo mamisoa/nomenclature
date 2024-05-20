@@ -1,7 +1,9 @@
 import codecs
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
+
 from lxml import etree
+
 
 def read_fees_and_generate_data(input_path, encoding='windows-1252'):
     # Read the original XML for fee details
@@ -48,13 +50,20 @@ def read_descriptions(desc_path, encoding='windows-1252'):
 def create_final_xml(fee_data, desc_data, output_path):
     # Create root element for the new XML
     root = ET.Element('nomen_data')
-    
+
     # Merge data and build XML structure
     for code in fee_data:
         entry = ET.SubElement(root, 'nomen_code_entry', attrib={'code': code})
         fees = fee_data[code]
-        ET.SubElement(entry, 'cout').text = str([fees[0], fees[1600], fees[1300],0])
-        
+        ET.SubElement(entry, "cout").text = str(
+            [
+                fees[0] if fees[0] is not None else 0,
+                fees[1600] if fees[1600] is not None else 0,
+                fees[1300] if fees[1300] is not None else 0,
+                0,
+            ]
+        )
+
         if code in desc_data:
             ET.SubElement(entry, 'desc_fr').text = desc_data[code]['F']
             ET.SubElement(entry, 'desc_nl').text = desc_data[code]['N']
