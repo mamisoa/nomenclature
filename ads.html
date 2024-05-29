@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create PDF with PDFMaker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js" integrity="sha512-w61kvDEdEhJPJLSAJpuL+RWp1+zTBUUpgPaP+6pcqCk78wQkOaExjnGWrVbovojeisWGQS7XZKz+gr3L+GPYLg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.min.js" integrity="sha512-EFlschXPq/G5zunGPRSYqazR1CMKj0cQc8v6eMrQwybxgIbhsfoO5NAMQX3xFDQIbFlViv53o7Hy+yCWw6iZxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <script>
+        const MILLIMETERS_IN_INCH = 25.4;
+        const POINTS_IN_INCH = 72;
+        var greeting = 'Can you see me';
+        function mmToPoints(mm) {
+        const inches = mm / MILLIMETERS_IN_INCH;
+        return inches * POINTS_IN_INCH;
+        }
+        function header(text) {
+            return { text: text, margins: [0, 0, 0, 20] };
+        }
+        function createPdf() {
+            var docDefinition = {
+                pageSize: {
+                    width: mmToPoints(127),
+                    height: mmToPoints(305)
+                  },
+                // pageMargins: [ 40, 60, 40, 60 ],
+                content: [
+                    {
+                        text: 'Nom et Prénom',
+                        style: 'subheader',
+                        absolutePosition: { x: mmToPoints(55), y: mmToPoints(77) }
+                    },
+                    {
+                        table: {
+                            widths: [50, 50, '*', '*', '*'],
+                            body: [
+                                ['20/05/24', '249233', '', '', ''],
+                                ['20/05/24', '248975', '', '', ''],
+                            ]
+                        },
+                        style: 'code',
+                        // layout: 'noBorders',
+                        absolutePosition: { x: mmToPoints(10), y: mmToPoints(111) },
+                    },
+                    {
+                        text: '75,00',
+                        style: 'price',
+                        absolutePosition: { x: mmToPoints(65), y: mmToPoints(205) },
+                        alignment: 'center'
+                    },
+                    {
+                        text: 'Dr ANDRIANTAFIKA Raberahona\nCentre d\'Ophtalmologie Bruxelles-Schuman\n66 av de Cortenbergh\n1000 Bruxelles\n1-8950632-370',
+                        style: 'footer',
+                        absolutePosition: { x: mmToPoints(10), y: mmToPoints(220) },
+                    },
+                    {
+                        text: '0893.588.051\n20/05/24\n75,00',
+                        style: 'footer',
+                        absolutePosition: { x: mmToPoints(62), y: mmToPoints(275) },
+                    }
+                ],
+                styles: {
+                    header: {
+                        fontSize: 18,
+                        bold: true,
+                        margin: [0, 0, 0, 10]
+                    },
+                    subheader: {
+                        fontSize: 14,
+                        margin: [0, 10, 0, 5]
+                    },
+                    code: {
+                        fontSize: 9
+                    },
+                    price: {
+                        fontSize: 14
+                    },
+                    footer: {
+                        fontSize: 10,
+                        italics: true
+                    }
+                },
+                defaultStyle: {
+                    // alignment: 'justify'
+                }
+            };
+            pdfMake.createPdf(docDefinition).open();
+        }
+    </script>
+    
+    <button onclick="createPdf()">Download PDF</button>
+</body>
+</html>
